@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import MyButton from "../../ui/MyButton/MyButton";
@@ -9,10 +9,10 @@ import { schemaRegistration } from "../../../utils/validation";
 import DateInput from "../../ui/DateInput/DateInput";
 import { registrationFilds } from "../../../data/index";
 import PasswordInputs from "../../ui/PasswordInputs/PasswordInputs";
-// import { useFetching } from "../../../utils/hoocks/useFetching";
-// import { generateToken } from "../../../apis/auth";
+import MyModal from "../../ui/MyModal/MyModal";
 
 function RegistrationForm() {
+  const [showModal, setshowModal] = useState(false);
   const {
     register,
     handleSubmit,
@@ -21,15 +21,21 @@ function RegistrationForm() {
     resolver: yupResolver(schemaRegistration),
   });
 
-  // const [fetchToken] = useFetching(async () => {
-  //   const token = await generateToken();
-  //   const requestUrl = `https://www.themoviedb.org/authenticate/${token}?redirect_to=http://localhost:3000/session`;
-  //   window.open(requestUrl, "_blank", "noopener noreferrer");
-  // });
-
   const onSubmit = () => {
-    console.log("submit");
+    setshowModal(true);
   };
+  const handleCloseModal = () => {
+    window.location.reload(false);
+  };
+  if (showModal) {
+    return (
+      <MyModal label="Congratulate!" body="You successfully registered!">
+        <MyButton color="success" onClick={handleCloseModal}>
+          Ok!
+        </MyButton>
+      </MyModal>
+    );
+  }
 
   return (
     <form type="submit" onSubmit={handleSubmit(onSubmit)}>
@@ -49,7 +55,6 @@ function RegistrationForm() {
       <DateInput />
       <RadioButtons mainLabel="Gender" inputsArray={genderInputs} />
       <PasswordInputs />
-
       <MyButton type="submit">Submit</MyButton>
     </form>
   );

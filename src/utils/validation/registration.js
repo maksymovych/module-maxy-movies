@@ -13,9 +13,7 @@ export const schemaRegistration = yup
       .string()
       .max(30, "Max length is 30 characters")
       .min(2, "Min length is 2 characters")
-      .matches(/^[A-Za-z]+$/i, "Must contain only letters"),
+      .matches(/(^[a-z]+[._0-9A-Za-z]+)/g, "Must contain only letters"),
     email: yup.string().email(),
   })
   .required();
-
-// .required("The email is required field")  .required("The email is required field")

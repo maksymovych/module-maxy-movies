@@ -1,19 +1,18 @@
-import { ConnectedRouter } from "connected-react-router";
 import React from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
+import MyThemeProvider from "./components/theme/ThemeProvider";
 import RoutesList from "./routs/RoutesList";
-import { history } from "./store/redusers";
 import { store } from "./store/store";
 
 function App() {
   return (
     <Provider store={store}>
-      <ConnectedRouter history={history}>
+      <MyThemeProvider>
         <BrowserRouter>
           <RoutesList />
         </BrowserRouter>
-      </ConnectedRouter>
+      </MyThemeProvider>
     </Provider>
   );
 }

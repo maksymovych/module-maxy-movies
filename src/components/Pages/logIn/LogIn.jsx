@@ -21,7 +21,7 @@ function LogIn() {
           variant="h4"
           component="h1"
         >
-          Welcome to Maxy Movies
+          Welcome to Module Maxy Movies
         </Typography>
         <Card sx={{ maxWidth: "500px", minWidth: "400px", m: "auto" }}>
           <RegistrTabPanel />

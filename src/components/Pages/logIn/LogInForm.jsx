@@ -2,8 +2,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import { generateToken } from "../../../apis/auth";
-import { useFetching } from "../../../utils/hoocks/useFetching";
 import MyButton from "../../ui/MyButton/MyButton";
 import MyInput from "../../ui/MyInput/MyInput";
 
@@ -28,15 +26,13 @@ function LogInForm() {
     resolver: yupResolver(schema),
   });
 
-  const [fetchToken] = useFetching(async () => {
-    const token = await generateToken();
-    const requestUrl = `https://www.themoviedb.org/authenticate/${token}?redirect_to=http://localhost:3000/session`;
-    window.open(requestUrl, "_blank", "noopener noreferrer");
-  });
+  // const [fetchToken] = useFetching(async () => {
+  //   const token = await generateToken();
+  //   const requestUrl = `https://www.themoviedb.org/authenticate/${token}?redirect_to=http://localhost:3000/email`;
+  //   window.open(requestUrl);
+  // });
 
-  const onSubmit = async () => {
-    await fetchToken();
-  };
+  const onSubmit = () => {};
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

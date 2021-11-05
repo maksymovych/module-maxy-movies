@@ -1,14 +1,14 @@
-import { connectRouter } from "connected-react-router";
 import { createBrowserHistory } from "history";
 import { combineReducers } from "redux";
-import { userSlice } from ".";
+import { userReducer } from ".";
+import { themReducer } from "./themeSlice";
 
 export const history = createBrowserHistory();
 
 export const rootReduser = (history) =>
   combineReducers({
-    user: userSlice.reducer,
-    router: connectRouter(history),
+    user: userReducer,
+    theme: themReducer,
   });
 
 export default rootReduser(history);
