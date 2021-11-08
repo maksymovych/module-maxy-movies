@@ -6,11 +6,18 @@ export const registrationFilds = [
 ];
 
 export const passwordFields = [
-  { label: "Password", name: "password", type: "password", required: true },
+  {
+    label: "Password",
+    name: "password",
+    type: "password",
+    required: true,
+    errorName: "errConfirm",
+  },
   {
     label: "Confirm",
     name: "comfirmPassword",
     type: "password",
     required: true,
+    errorName: "errPassword",
   },
 ];

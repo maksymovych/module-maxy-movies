@@ -2,6 +2,7 @@ import * as React from "react";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import PropTypes from "prop-types";
 
 function notificationsLabel(count) {
   if (count === 0) {
@@ -22,3 +23,7 @@ export default function MyFavoriteIcon({ amount, ...props }) {
     </IconButton>
   );
 }
+MyFavoriteIcon.propTypes = {
+  amount: PropTypes.number,
+  props: PropTypes.any,
+};

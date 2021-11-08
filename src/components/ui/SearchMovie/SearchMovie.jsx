@@ -2,6 +2,7 @@ import React from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
+import { PropTypes } from "prop-types";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -62,3 +63,7 @@ function SearchMovie({ ...props }) {
 }
 
 export default SearchMovie;
+
+SearchMovie.propTypes = {
+  props: PropTypes.any,
+};

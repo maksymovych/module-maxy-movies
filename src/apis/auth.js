@@ -12,6 +12,11 @@ export const baseAxios = axios.create({
   },
 });
 
+export const discoverMovies = async () => {
+  const { data } = await baseAxios.get("discover/movie");
+  return data;
+};
+
 export const getMovie = async (id) => {
   const { data } = await baseAxios.get(`movie/${id}`);
   return data;
@@ -36,11 +41,14 @@ export const generateSeccionId = async () => {
 
 export const getUserData = async (sessionId) => {
   const { data } = await baseAxios.get(`account?session_id=${sessionId}`);
-  localStorage.setItem("user", JSON.stringify(data));
   return data;
 };
 
-export const deliteSession = async (sessionId) => {
-  await baseAxios.delete("authentication/session", { sessionId });
-  return;
+export const deliteSessionId = async (sessionId) => {
+  const data = await baseAxios.delete("authentication/session", {
+    data: {
+      session_id: sessionId,
+    },
+  });
+  return data;
 };

@@ -12,33 +12,32 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import NavBar from "../../NavBar/NavBar";
 import MyButton from "../../ui/MyButton/MyButton";
+import { getImgPath } from "../../../utils/functions/getImgPath";
+import { useDispatch, useSelector } from "react-redux";
+import ButtonBack from "../../ui/MyButton/ButtonBack";
+import { deliteSession } from "../../../store/redusers";
 
 function Profile() {
-  //const { imagePath } = useSelector((state) => state.user);
-  const imgP = localStorage.getItem("img");
-  const user = localStorage.getItem("user");
- // const sessionId = localStorage.getItem('session_id')
-  const { id, name, username } = JSON.parse(user);
+  const { data } = useSelector((state) => state.user);
+  const imgP = getImgPath(data.avatar.tmdb.avatar_path);
+  const { id, name, username } = data;
+  const dispatch = useDispatch();
 
   const handleLogOut = () => {
-  
-    localStorage.clear()
-    
+    const sessionId = localStorage.getItem("session_id");
+    dispatch(deliteSession(sessionId));
+    localStorage.clear();
   };
 
   return (
     <>
       <NavBar />
-      <Card sx={{ maxWidth: 345, margin: "40px auto" }}>
-        <CardMedia
-          component="img"
-          height="140"
-          image={imgP}
-          alt="green iguana"
-        />
+      <ButtonBack />
+      <Card sx={{ maxWidth: 345, margin: "20px auto" }}>
+        <CardMedia component="img" image={imgP} alt="green iguana" />
         <CardContent>
           <TableContainer component={Paper}>
-            <Table sx={{ width: '100%' }} aria-label="caption table">
+            <Table sx={{ width: "100%" }} aria-label="caption table">
               <TableBody>
                 <TableRow>
                   <TableCell component="th" scope="row">

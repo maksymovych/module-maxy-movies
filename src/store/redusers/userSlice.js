@@ -1,13 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getUserData } from "../../apis/auth";
+import { deliteSessionId, getUserData } from "../../apis/auth";
 
 export const initialState = {
   avatar: "",
   data: {},
   fielsd: [],
-  isLoggedIn: false,
-  loading: false,
-  imagePath: "",
+  isLoggedIn: true,
+  loading: true,
 };
 
 export const fetchUser = createAsyncThunk(
@@ -18,32 +17,41 @@ export const fetchUser = createAsyncThunk(
   }
 );
 
+export const deliteSession = createAsyncThunk(
+  "user/deliteSession",
+  async (sessionId) => {
+    const data = deliteSessionId(sessionId);
+    console.log(data, sessionId);
+  }
+);
+
 const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    addUser(state, action) {
-      state.data = action.payload;
+    setLogIn(state) {
       state.isLoggedIn = true;
     },
-    addUserImgPath(state, action) {
-      state.imagePath = action.payload;
+    setLogOut(state) {
+      state.isLoggedIn = false;
     },
-
-    extraReducers: {
-      [fetchUser.pending](state) {
-        state.loading = true;
-      },
-      [fetchUser.fulfilled](state, action) {
-        state.data = action.payload.data;
-        state.loading = false;
-      },
-      [fetchUser.rejected](state) {
-        state.loading = false;
-      },
+  },
+  extraReducers: {
+    [fetchUser.pending](state) {
+      state.loading = true;
+    },
+    [fetchUser.fulfilled](state, action) {
+      state.data = action.payload;
+      state.loading = false;
+    },
+    [fetchUser.rejected](state) {
+      state.loading = false;
+    },
+    [deliteSession.fulfilled](state) {
+      state.isLoggedIn = false;
     },
   },
 });
 
-export const { addUser, addUserImgPath } = userSlice.actions;
+export const { setLogIn, setLogOut } = userSlice.actions;
 export const userReducer = userSlice.reducer;

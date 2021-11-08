@@ -1,8 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Route, Redirect } from "react-router-dom";
 
 function PrivateRoute({ path, component: Component }) {
-  const isLoggedIn = localStorage.getItem("session_id");
+  const { isLoggedIn } = useSelector((state) => state.user);
   return (
     <Route
       path={path}

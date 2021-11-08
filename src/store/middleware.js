@@ -2,6 +2,7 @@ import { createLogger } from "redux-logger";
 import { routerMiddleware } from "connected-react-router";
 import thunk from "redux-thunk";
 import { history } from "./redusers";
+import { userApi } from "../apis/userRTK";
 
 export const logger = createLogger({
   duration: true,
@@ -17,7 +18,7 @@ export const logger = createLogger({
 
 const isDevelopmentMode = process.env.NODE_ENV === "development";
 
-export const middlewares = [thunk];
+export const middlewares = [thunk, userApi.middleware];
 
 if (isDevelopmentMode) {
   middlewares.push(logger, routerMiddleware(history));

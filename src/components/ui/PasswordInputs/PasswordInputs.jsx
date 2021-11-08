@@ -7,8 +7,10 @@ import {
   InputAdornment,
   InputLabel,
   OutlinedInput,
+  Typography,
 } from "@mui/material";
 import { passwordFields } from "../../../data/index";
+import { passwordValidation } from "../../../utils/validation/password";
 
 function PasswordInputs() {
   const [values, setValues] = useState({
@@ -17,6 +19,13 @@ function PasswordInputs() {
     showPassword: false,
     isError: false,
   });
+  const errorMessages = {
+    unEquale: "Passwords are unequale",
+    isMatch:
+      "Password lebgth min 6 max 20 characters, should contain at least one numeric digit, one uppercase and one lowercase letter",
+  };
+  const pass = values.password;
+  const cPass = values.comfirmPassword;
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
@@ -34,38 +43,47 @@ function PasswordInputs() {
   };
 
   const handleOnBlur = () => {
-    const pass = values.password;
-    const cPass = values.comfirmPassword;
-    if (pass.length < 4 || pass !== cPass) {
+    if (!pass.match(passwordValidation)) {
       setValues({
         ...values,
         isError: true,
+        errPassword: errorMessages.isMatch,
       });
+      return;
+    }
+    if (pass !== cPass) {
+      setValues({
+        ...values,
+        isError: true,
+        errPassword: errorMessages.unEquale,
+      });
+      return;
     } else {
       setValues({
         ...values,
         isError: false,
+        errPassword: "",
       });
     }
   };
 
   return (
     <>
-      {passwordFields.map((item, i) => (
+      {passwordFields.map(({ name, label }, i) => (
         <FormControl
           fullWidth
           sx={{ my: "15px" }}
           variant="outlined"
           key={i + 20}
         >
-          <InputLabel htmlFor={item.name}>{item.label}</InputLabel>
+          <InputLabel htmlFor={name}>{label}</InputLabel>
           <OutlinedInput
             onBlur={handleOnBlur}
             required
-            id={item.name}
+            id={name}
             type={values.showPassword ? "text" : "password"}
-            value={values[item.name]}
-            onChange={handleChange(`${item.name}`)}
+            value={values[name]}
+            onChange={handleChange(`${name}`)}
             error={values.isError}
             endAdornment={
               <InputAdornment position="end">
@@ -81,6 +99,9 @@ function PasswordInputs() {
             }
             label="Password"
           />
+          {i === 0 && values.isError && (
+            <Typography>{values.errPassword}</Typography>
+          )}
         </FormControl>
       ))}
     </>

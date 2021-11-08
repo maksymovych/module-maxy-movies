@@ -13,7 +13,7 @@ function LogIn() {
           image="https://fantlab.ru/blogfiles/b74269/img/1?r=1631814565"
         />
       </Box>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box>
         <Typography
           align="center"
           sx={{ m: "30px" }}
