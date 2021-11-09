@@ -1,7 +1,7 @@
 import { Box } from "@mui/system";
 import React from "react";
 import { useHistory } from "react-router";
-import MyButton from "./MyButton";
+import MyButton from "../MyButton/MyButton";
 
 function ButtonBack(props) {
   const history = useHistory();

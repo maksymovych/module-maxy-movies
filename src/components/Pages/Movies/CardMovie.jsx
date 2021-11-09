@@ -9,8 +9,8 @@ import { useHistory } from "react-router";
 import Raiting from "../../ui/Raiting/Raiting";
 import {
   addCurrentMovie,
-  addToFavorits,
-  removeFromFavorits,
+  fetchFavorits,
+  fetchMarkAsFavorite,
 } from "../../../store/redusers";
 import { useDispatch } from "react-redux";
 import FavoriteIco from "../../ui/FavoritIco/FavoriteIco";
@@ -20,26 +20,33 @@ export default function CardMovie(props) {
   const { poster, raiting, name, id, reliase, favorits } = props;
   const dispatch = useDispatch();
   const history = useHistory();
-  const isFavoriteMovie = isFavorite(id, favorits);
   const pathImg = getImgPath(poster);
-  const handleAddToFavorit = () => {
-    isFavoriteMovie
-      ? dispatch(removeFromFavorits(id))
-      : dispatch(addToFavorits(id));
+  const isFavorit = isFavorite(id, favorits);
+  if (!poster) {
+    return null;
+  }
+  const handleAddToFavorit = async () => {
+    const sessionId = localStorage.getItem("session_id");
+    const isFav = !isFavorit;
+    await dispatch(fetchMarkAsFavorite({ id, isFav, sessionId }));
+    await dispatch(fetchFavorits(sessionId));
   };
+
   const handleOpenDescription = () => {
     dispatch(addCurrentMovie(props));
     history.push(`movie/${id}`);
   };
+
   return (
     <Grid item key={id}>
       <Card sx={{ maxWidth: "250px" }}>
         <CardActionArea>
           <FavoriteIco
             sx={{ position: "absolute", right: "10px", top: "10px" }}
-            isFavorite={isFavoriteMovie}
+            isFavorite={isFavorit}
             onClick={handleAddToFavorit}
           />
+
           <CardMedia
             component="img"
             height="100%"
@@ -48,6 +55,7 @@ export default function CardMovie(props) {
             alt="green iguana"
             onClick={handleOpenDescription}
           />
+
           <CardContent>
             <Raiting raiting={raiting} color="secondary" />
             <Typography
@@ -60,7 +68,6 @@ export default function CardMovie(props) {
             >
               {name}
             </Typography>
-
             <Typography variant="body2" color="text.secondary">
               {reliase}
             </Typography>

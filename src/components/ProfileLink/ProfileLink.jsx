@@ -6,8 +6,8 @@ import { getImgPath } from "../../utils/functions/getImgPath";
 import Loader from "../ui/Loader/Loader";
 
 function ProfileLink() {
-  const { data, loading } = useSelector((state) => state.user);
-  if (loading) {
+  const { data } = useSelector((state) => state.user);
+  if (!data?.avatar?.tmdb?.avatar_path) {
     return <Loader />;
   }
   const imgPath = getImgPath(data.avatar.tmdb.avatar_path);

@@ -1,32 +1,45 @@
-import React from "react";
-import { Grid, Stack } from "@mui/material";
+import React, { useState } from "react";
+import { Grid, Skeleton, Stack } from "@mui/material";
 import NavBar from "../../NavBar/NavBar";
 import SearchMovie from "../../ui/SearchMovie/SearchMovie";
 import ProfileLink from "../../ProfileLink/ProfileLink";
 import BasicPagination from "../../ui/Pagination/Pagination";
 import { useStateDispatch } from "../../../utils/hoocks/useStateDispatch";
-import { changeSearchField, fetchMovies } from "../../../store/redusers";
-import Loader from "../../ui/Loader/Loader";
+import {
+  fetchFavorits,
+  fetchMovies,
+  fetchSearchMovie,
+} from "../../../store/redusers";
 import CardMovie from "./CardMovie";
+import Loader from "../../ui/Loader/Loader";
 
 function Movies() {
-  const [{ isFatching, movies, favorits }, dispatch] =
+  const [{ movies, favoritId, isFetching }, dispatch] =
     useStateDispatch("movies");
   const { page, results, total_pages } = movies;
+  const [search, setSearch] = useState("");
 
-  if (!movies?.results?.length) {
+  if (!favoritId?.length) {
+    const sessionId = localStorage.getItem("session_id");
+    dispatch(fetchFavorits(sessionId));
+  }
+
+  if (!results?.length && !isFetching) {
     dispatch(fetchMovies());
   }
 
   const handleChangeSearchInput = (e) => {
-    dispatch(changeSearchField(e.target.value));
+    const text = e.target.value;
+    setSearch(text);
+    if (text.length < 2) return;
+    dispatch(fetchSearchMovie({ text }));
   };
 
-  if (isFatching) {
-    return <Loader />;
-  }
-  const changePage = (e) => {
-    console.log(e, "change");
+  const changePage = (_, page) => {
+    const text = search;
+    !!search
+      ? dispatch(fetchSearchMovie({ text, page }))
+      : dispatch(fetchMovies(page));
   };
 
   return (
@@ -34,14 +47,19 @@ function Movies() {
       <NavBar>
         <Stack direction="row" spacing={1}>
           <ProfileLink />
-          <SearchMovie onChange={handleChangeSearchInput} />
+          <SearchMovie value={search} onChange={handleChangeSearchInput} />
         </Stack>
       </NavBar>
-      <BasicPagination
-        pageAmount={total_pages}
-        page={page}
-        changePage={changePage}
-      />
+      {isFetching ? (
+        <Loader />
+      ) : (
+        <BasicPagination
+          pageAmount={total_pages}
+          page={page}
+          onChange={changePage}
+        />
+      )}
+
       <Grid
         container
         spacing={3}
@@ -50,7 +68,7 @@ function Movies() {
         alignItems="center"
         sx={{ px: "20px" }}
       >
-        {!!results &&
+        {results ? (
           results.map(
             ({
               backdrop_path,
@@ -70,10 +88,18 @@ function Movies() {
                 raiting={vote_average}
                 reliase={release_date}
                 poster={poster_path}
-                favorits={favorits}
+                favorits={favoritId}
               />
             )
-          )}
+          )
+        ) : (
+          <Skeleton
+            variant="rectangular"
+            sx={{ mt: "20px" }}
+            width={250}
+            height={470}
+          />
+        )}
       </Grid>
     </>
   );

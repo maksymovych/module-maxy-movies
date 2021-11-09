@@ -13,6 +13,7 @@ export const fetchUser = createAsyncThunk(
   "user/fetchUser",
   async (sessionId) => {
     const data = await getUserData(sessionId);
+    console.log(data);
     return data;
   }
 );
@@ -20,8 +21,7 @@ export const fetchUser = createAsyncThunk(
 export const deliteSession = createAsyncThunk(
   "user/deliteSession",
   async (sessionId) => {
-    const data = deliteSessionId(sessionId);
-    console.log(data, sessionId);
+    deliteSessionId(sessionId);
   }
 );
 

@@ -1,7 +1,8 @@
 import React from "react";
 import { useHistory } from "react-router";
-import MyButton from "../../ui/MyButton/MyButton";
+import MyButton from "../../ui/buttons/MyButton/MyButton";
 import MyModal from "../../ui/MyModal/MyModal";
+
 function Error() {
   const history = useHistory();
   const handleGoToLogin = () => {

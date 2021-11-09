@@ -6,9 +6,11 @@ import Typography from "@mui/material/Typography";
 import MyFavoriteIcon from "../ui/MyFavoriteIcon/MyFavoriteIcon";
 import ThemToggle from "../ui/ThemToggle/ThemToggle";
 import { useHistory } from "react-router";
+import { useSelector } from "react-redux";
 
 export default function NavBar({ children, ...props }) {
   const history = useHistory();
+  const { favoritId } = useSelector((state) => state.movies);
   const handleOpenFavorites = () => {
     history.push("/favorits");
   };
@@ -16,7 +18,10 @@ export default function NavBar({ children, ...props }) {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <MyFavoriteIcon onClick={handleOpenFavorites} amount={1} />
+          <MyFavoriteIcon
+            onClick={handleOpenFavorites}
+            amount={favoritId.length}
+          />
           <ThemToggle />
           <Typography
             variant="h6"

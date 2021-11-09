@@ -12,8 +12,30 @@ export const baseAxios = axios.create({
   },
 });
 
-export const discoverMovies = async () => {
-  const { data } = await baseAxios.get("discover/movie");
+export const searchMovie = async (query, page = 1) => {
+  const { data } = await baseAxios.get("/search/movie", {
+    params: { query, page },
+  });
+  return data;
+};
+
+export const getFavorits = async (sessionId) => {
+  const { data } = await baseAxios.get(
+    `/account/11342216/favorite/movies?session_id=${sessionId}`
+  );
+  return data;
+};
+
+export const markAsFavorite = async (media_id, favorite, sessionId) => {
+  await baseAxios.post(`account/11342216/favorite?session_id=${sessionId}`, {
+    media_type: "movie",
+    media_id,
+    favorite,
+  });
+};
+
+export const discoverMovies = async (page) => {
+  const { data } = await baseAxios.get(`discover/movie?page=${page}`);
   return data;
 };
 

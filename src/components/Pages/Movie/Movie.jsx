@@ -1,26 +1,29 @@
 import { Card, CardContent, CardMedia, Stack, Typography } from "@mui/material";
 import React from "react";
 import NavBar from "../../NavBar/NavBar";
-import ButtonBack from "../../ui/MyButton/ButtonBack";
 import { getImgPath } from "../../../utils/functions/getImgPath";
 import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@mui/system";
 import Raiting from "../../ui/Raiting/Raiting";
 import FavoriteIco from "../../ui/FavoritIco/FavoriteIco";
 import { isFavorite } from "../../../utils/functions/isFavorit";
-import { addToFavorits, removeFromFavorits } from "../../../store/redusers";
+import ButtonBack from "../../ui/buttons/ButtonBack/ButtonBack";
+import { fetchFavorits, fetchMarkAsFavorite } from "../../../store/redusers";
 
 function Movie() {
-  const { currentMovie, favorits } = useSelector((state) => state.movies);
-  const dispatch = useDispatch();
+  const { currentMovie, favoritId } = useSelector((state) => state.movies);
   const { path, poster, raiting, title, name, reliase, id } = currentMovie;
-  const isFavoriteMovie = isFavorite(id, favorits);
+  const dispatch = useDispatch();
+
+  const isFavorit = isFavorite(id, favoritId);
   const fullImgPath = getImgPath(path);
   const posterPath = getImgPath(poster);
-  const handleAddToFavorit = () => {
-    isFavoriteMovie
-      ? dispatch(removeFromFavorits(id))
-      : dispatch(addToFavorits(id));
+
+  const handleAddToFavorit = async () => {
+    const sessionId = localStorage.getItem("session_id");
+    const isFav = !isFavorit;
+    await dispatch(fetchMarkAsFavorite({ id, isFav, sessionId }));
+    await dispatch(fetchFavorits(sessionId));
   };
 
   return (
@@ -58,7 +61,7 @@ function Movie() {
               <Stack direction="row" spacing={2}>
                 <Raiting raiting={raiting} sx={{ top: "0px" }} />
                 <FavoriteIco
-                  isFavorite={isFavoriteMovie}
+                  isFavorite={isFavorit}
                   onClick={handleAddToFavorit}
                 />
               </Stack>

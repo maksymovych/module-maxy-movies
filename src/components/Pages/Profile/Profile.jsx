@@ -11,11 +11,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import NavBar from "../../NavBar/NavBar";
-import MyButton from "../../ui/MyButton/MyButton";
+import MyButton from "../../ui/buttons/MyButton/MyButton";
 import { getImgPath } from "../../../utils/functions/getImgPath";
 import { useDispatch, useSelector } from "react-redux";
-import ButtonBack from "../../ui/MyButton/ButtonBack";
 import { deliteSession } from "../../../store/redusers";
+import ButtonBack from "../../ui/buttons/ButtonBack/ButtonBack";
 
 function Profile() {
   const { data } = useSelector((state) => state.user);

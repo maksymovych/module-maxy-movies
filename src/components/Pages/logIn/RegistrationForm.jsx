@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import MyButton from "../../ui/MyButton/MyButton";
-import MyInput from "../../ui/MyInput/MyInput";
-import RadioButtons from "../../ui/RadioButtons/RadioButtons";
 import { genderInputs } from "../../../data";
 import { schemaRegistration } from "../../../utils/validation";
-import DateInput from "../../ui/DateInput/DateInput";
 import { registrationFilds } from "../../../data/index";
-import PasswordInputs from "../../ui/PasswordInputs/PasswordInputs";
 import MyModal from "../../ui/MyModal/MyModal";
+import MyInput from "../../ui/inputs/MyInput/MyInput";
+import DateInput from "../../ui/inputs/DateInput/DateInput";
+import MyButton from "../../ui/buttons/MyButton/MyButton";
+import PasswordInputs from "../../ui/inputs/PasswordInputs/PasswordInputs";
+import RadioButtons from "../../ui/buttons/RadioButtons/RadioButtons";
 
 function RegistrationForm() {
   const [showModal, setshowModal] = useState(false);
