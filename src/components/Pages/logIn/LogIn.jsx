@@ -10,6 +10,7 @@ function LogIn() {
       <Box sx={{ flexGrow: 1, display: { xs: "none", lg: "block" } }}>
         <CardMedia
           component="img"
+          alt="movie_poster"
           image="https://fantlab.ru/blogfiles/b74269/img/1?r=1631814565"
         />
       </Box>

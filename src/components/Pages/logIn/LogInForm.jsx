@@ -31,7 +31,7 @@ function LogInForm() {
 
   const [fetchToken] = useFetching(async () => {
     const token = await generateToken();
-    const requestUrl = `https://www.themoviedb.org/authenticate/${token}?redirect_to=http://localhost:3000/session`;
+    const requestUrl = `https://www.themoviedb.org/authenticate/${token}?redirect_to=${process.env.REACT_APP_REDIRECT_PAGE}`;
     window.open(requestUrl, "_blank", "noopener noreferrer");
   });
 
