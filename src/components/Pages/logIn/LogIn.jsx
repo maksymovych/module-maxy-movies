@@ -14,10 +14,13 @@ function LogIn() {
           image="https://fantlab.ru/blogfiles/b74269/img/1?r=1631814565"
         />
       </Box>
-      <Box>
+      <Box sx={{ flexGrow: 1 }}>
         <Typography
           align="center"
-          sx={{ m: "30px" }}
+          sx={{
+            m: "30px",
+            fontFamily: "Mochiy Pop One",
+          }}
           gutterBottom
           variant="h4"
           component="h1"

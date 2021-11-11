@@ -8,9 +8,11 @@ import ThemToggle from "../ui/ThemToggle/ThemToggle";
 import { useHistory } from "react-router";
 import { useSelector } from "react-redux";
 
-export default function NavBar({ children, ...props }) {
+export default function NavBar({ children }) {
   const history = useHistory();
-  const { favoritId } = useSelector((state) => state.movies);
+  const {
+    favorits: { total_results },
+  } = useSelector((state) => state.movies);
   const handleOpenFavorites = () => {
     history.push("/favorits");
   };
@@ -20,7 +22,7 @@ export default function NavBar({ children, ...props }) {
         <Toolbar>
           <MyFavoriteIcon
             onClick={handleOpenFavorites}
-            amount={favoritId.length}
+            amount={total_results}
           />
           <ThemToggle />
           <Typography

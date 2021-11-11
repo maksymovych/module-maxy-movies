@@ -9,8 +9,10 @@ import React from "react";
 function RadioButtons({ mainLabel, inputsArray }) {
   return (
     <FormControl component="fieldset">
-      <FormLabel component="legend">{mainLabel}</FormLabel>
       <RadioGroup row name="row-radio-buttons-group">
+        <FormLabel sx={{ m: "10px" }} component="legend">
+          {mainLabel}:
+        </FormLabel>
         {inputsArray.map((item, i) => (
           <FormControlLabel
             key={i}

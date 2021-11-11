@@ -15,6 +15,7 @@ import {
 import { useDispatch } from "react-redux";
 import FavoriteIco from "../../ui/FavoritIco/FavoriteIco";
 import { isFavorite } from "../../../utils/functions/isFavorit";
+import Loader from "../../ui/Loader/Loader";
 
 export default function CardMovie(props) {
   const { poster, raiting, name, id, reliase, favorits } = props;
@@ -26,10 +27,10 @@ export default function CardMovie(props) {
     return null;
   }
   const handleAddToFavorit = async () => {
-    const sessionId = localStorage.getItem("session_id");
+    const session_id = localStorage.getItem("session_id");
     const isFav = !isFavorit;
-    await dispatch(fetchMarkAsFavorite({ id, isFav, sessionId }));
-    await dispatch(fetchFavorits(sessionId));
+    await dispatch(fetchMarkAsFavorite({ id, isFav, session_id }));
+    await dispatch(fetchFavorits({ session_id }));
   };
 
   const handleOpenDescription = () => {
@@ -46,15 +47,18 @@ export default function CardMovie(props) {
             isFavorite={isFavorit}
             onClick={handleAddToFavorit}
           />
-
-          <CardMedia
-            component="img"
-            height="100%"
-            width="100%"
-            image={pathImg}
-            alt="green iguana"
-            onClick={handleOpenDescription}
-          />
+          {pathImg ? (
+            <CardMedia
+              component="img"
+              height="100%"
+              width="100%"
+              image={pathImg}
+              alt="green iguana"
+              onClick={handleOpenDescription}
+            />
+          ) : (
+            <Loader />
+          )}
 
           <CardContent>
             <Raiting raiting={raiting} color="secondary" />

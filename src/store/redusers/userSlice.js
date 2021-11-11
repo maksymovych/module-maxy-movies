@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { deliteSessionId, getUserData } from "../../apis/auth";
+import { delitesession_id, getUserData } from "../../apis/auth";
 
 export const initialState = {
   avatar: "",
@@ -11,17 +11,16 @@ export const initialState = {
 
 export const fetchUser = createAsyncThunk(
   "user/fetchUser",
-  async (sessionId) => {
-    const data = await getUserData(sessionId);
-    console.log(data);
+  async (session_id) => {
+    const data = await getUserData(session_id);
     return data;
   }
 );
 
 export const deliteSession = createAsyncThunk(
   "user/deliteSession",
-  async (sessionId) => {
-    deliteSessionId(sessionId);
+  async (session_id) => {
+    delitesession_id(session_id);
   }
 );
 

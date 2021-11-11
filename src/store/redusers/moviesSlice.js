@@ -7,9 +7,11 @@ import {
 } from "../../apis/auth";
 
 export const initialState = {
+  searchInput: "",
   favorits: {},
   favoritId: [],
-  currentMovie: "",
+  searchFields: {},
+  currentMovie: {},
   movies: {},
   isFetching: false,
   error: false,
@@ -25,24 +27,23 @@ export const fetchSearchMovie = createAsyncThunk(
 
 export const fetchMovies = createAsyncThunk(
   "movies/fetchMovies",
-  async (page) => {
-    console.log(page);
-    const data = await discoverMovies(page);
+  async ({ page, language, genres }) => {
+    const data = await discoverMovies(page, language, genres);
     return data;
   }
 );
 
 export const fetchMarkAsFavorite = createAsyncThunk(
   "movies/fetchMarkAsFavorite",
-  async ({ id, isFav, sessionId }) => {
-    await markAsFavorite(id, isFav, sessionId);
+  async ({ id, isFav, session_id }) => {
+    await markAsFavorite(id, isFav, session_id);
   }
 );
 
 export const fetchFavorits = createAsyncThunk(
   "movies/fetchFavorits",
-  async (sessioId) => {
-    const data = await getFavorits(sessioId);
+  async ({ session_id, page }) => {
+    const data = await getFavorits(session_id, page);
     return data;
   }
 );
@@ -53,6 +54,12 @@ const movieSlice = createSlice({
   reducers: {
     addCurrentMovie(state, action) {
       state.currentMovie = action.payload;
+    },
+    changeSearchFields(state, action) {
+      state.searchFields = action.payload;
+    },
+    changeSearchInput(state, action) {
+      state.searchInput = action.payload;
     },
   },
   extraReducers: {
@@ -96,5 +103,6 @@ const movieSlice = createSlice({
   },
 });
 
-export const { addCurrentMovie } = movieSlice.actions;
+export const { addCurrentMovie, changeSearchFields, changeSearchInput } =
+  movieSlice.actions;
 export const movieReducer = movieSlice.reducer;

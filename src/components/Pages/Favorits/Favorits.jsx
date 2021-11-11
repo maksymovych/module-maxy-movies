@@ -1,19 +1,42 @@
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { fetchFavorits } from "../../../store/redusers";
 import { useStateDispatch } from "../../../utils/hoocks/useStateDispatch";
 import NavBar from "../../NavBar/NavBar";
 import ProfileLink from "../../ProfileLink/ProfileLink";
 import ButtonBack from "../../ui/buttons/ButtonBack/ButtonBack";
+import BasicPagination from "../../ui/Pagination/Pagination";
 import CardMovie from "../Movies/CardMovie";
 
 function Favorits() {
-  const [{ favoritId, favorits }] = useStateDispatch("movies");
+  const dispatch = useDispatch();
+  const [
+    {
+      favoritId,
+      favorits: { results, total_pages, page },
+    },
+  ] = useStateDispatch("movies");
+
+  const changePageFavorits = (_, value) => {
+    const session_id = localStorage.getItem("session_id");
+    dispatch(fetchFavorits({ session_id, page: value }));
+  };
+
   return (
     <>
       <NavBar>
         <ProfileLink />
       </NavBar>
-      <ButtonBack />
+      <ButtonBack isBack={true} />
+      <Typography align="center" sx={{ mb: "20px" }} variant="h5">
+        Your favorite movies
+      </Typography>
+      <BasicPagination
+        pageAmount={total_pages}
+        page={page}
+        onChange={changePageFavorits}
+      />
       <Grid
         container
         spacing={3}
@@ -22,8 +45,8 @@ function Favorits() {
         alignItems="center"
         sx={{ p: "10px" }}
       >
-        {favorits.results &&
-          favorits.results.map(
+        {results ? (
+          results.map(
             ({
               backdrop_path,
               poster_path,
@@ -45,7 +68,13 @@ function Favorits() {
                 favorits={favoritId}
               />
             )
-          )}
+          )
+        ) : (
+          <Typography sx={{ p: "20px", mx: "30px" }} variant="h6">
+            ...Sorry you dont have your own list of favorits. But you can change
+            it by cklicking on the heart on the movie card:)
+          </Typography>
+        )}
       </Grid>
     </>
   );

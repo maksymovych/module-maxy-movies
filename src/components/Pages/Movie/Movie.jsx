@@ -20,10 +20,10 @@ function Movie() {
   const posterPath = getImgPath(poster);
 
   const handleAddToFavorit = async () => {
-    const sessionId = localStorage.getItem("session_id");
+    const session_id = localStorage.getItem("session_id");
     const isFav = !isFavorit;
-    await dispatch(fetchMarkAsFavorite({ id, isFav, sessionId }));
-    await dispatch(fetchFavorits(sessionId));
+    await dispatch(fetchMarkAsFavorite({ id, isFav, session_id }));
+    await dispatch(fetchFavorits({ session_id }));
   };
 
   return (
@@ -38,7 +38,7 @@ function Movie() {
           sx={{ opacity: [0.5, 0.6, 0.4] }}
         />
         <Box sx={{ position: "absolute", top: 0 }}>
-          <ButtonBack sx={{ my: "10px" }} />
+          <ButtonBack isBack={true} sx={{ my: "10px" }} />
           <Box
             sx={{
               display: { xs: "block", md: "flex" },

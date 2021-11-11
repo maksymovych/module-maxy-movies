@@ -3,10 +3,10 @@ import React from "react";
 import { useHistory } from "react-router";
 import MyButton from "../MyButton/MyButton";
 
-function ButtonBack(props) {
+function ButtonBack({ isBack, ...props }) {
   const history = useHistory();
   const handleBack = () => {
-    history.push("/movies");
+    !!isBack ? history.goBack() : history.push("/movies");
   };
 
   return (

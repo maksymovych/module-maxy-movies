@@ -7,9 +7,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 import NavBar from "../../NavBar/NavBar";
 import MyButton from "../../ui/buttons/MyButton/MyButton";
 import { getImgPath } from "../../../utils/functions/getImgPath";
@@ -24,45 +22,45 @@ function Profile() {
   const dispatch = useDispatch();
 
   const handleLogOut = () => {
-    const sessionId = localStorage.getItem("session_id");
-    dispatch(deliteSession(sessionId));
+    const session_id = localStorage.getItem("session_id");
+    dispatch(deliteSession(session_id));
     localStorage.clear();
   };
 
   return (
     <>
       <NavBar />
-      <ButtonBack />
+      <ButtonBack isBack={true} />
       <Card sx={{ maxWidth: 345, margin: "20px auto" }}>
         <CardMedia component="img" image={imgP} alt="green iguana" />
         <CardContent>
-          <TableContainer component={Paper}>
-            <Table sx={{ width: "100%" }} aria-label="caption table">
-              <TableBody>
-                <TableRow>
-                  <TableCell component="th" scope="row">
-                    Name
-                  </TableCell>
-                  <TableCell align="right">{name}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell component="th" scope="row">
-                    NickName
-                  </TableCell>
-                  <TableCell align="right">{username}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell component="th" scope="row">
-                    ID
-                  </TableCell>
-                  <TableCell align="right">{id}</TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </TableContainer>
+          <Table sx={{ width: "100%" }} aria-label="caption table">
+            <TableBody>
+              <TableRow>
+                <TableCell component="th" scope="row">
+                  Name:
+                </TableCell>
+                <TableCell align="left">{name}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell component="th" scope="row">
+                  NickName:
+                </TableCell>
+                <TableCell align="left">{username}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell component="th" scope="row">
+                  User ID:
+                </TableCell>
+                <TableCell align="left">{id}</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
         </CardContent>
         <CardActions sx={{ px: "30%" }}>
-          <MyButton onClick={handleLogOut}>Log out</MyButton>
+          <MyButton sx={{ mb: "15px" }} onClick={handleLogOut}>
+            Log out
+          </MyButton>
         </CardActions>
       </Card>
     </>

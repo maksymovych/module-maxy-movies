@@ -13,7 +13,7 @@ export const userApi = createApi({
   baseQuery: fetchBaseQuery(baseURL),
   endpoints: (builder) => ({
     getUser: builder.query({
-      query: (sessionId) => `account/${sessionId}`,
+      query: (session_id) => `account/${session_id}`,
     }),
     generateToken: builder.query({
       query: () => "authentication/token/new",

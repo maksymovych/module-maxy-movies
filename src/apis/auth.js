@@ -19,23 +19,29 @@ export const searchMovie = async (query, page = 1) => {
   return data;
 };
 
-export const getFavorits = async (sessionId) => {
-  const { data } = await baseAxios.get(
-    `/account/11342216/favorite/movies?session_id=${sessionId}`
-  );
+export const getFavorits = async (session_id, page = 1) => {
+  const { data } = await baseAxios.get("/account/11342216/favorite/movies", {
+    params: { session_id, page },
+  });
   return data;
 };
 
-export const markAsFavorite = async (media_id, favorite, sessionId) => {
-  await baseAxios.post(`account/11342216/favorite?session_id=${sessionId}`, {
+export const markAsFavorite = async (media_id, favorite, session_id) => {
+  await baseAxios.post(`account/11342216/favorite?session_id=${session_id}`, {
     media_type: "movie",
     media_id,
     favorite,
   });
 };
 
-export const discoverMovies = async (page) => {
-  const { data } = await baseAxios.get(`discover/movie?page=${page}`);
+export const discoverMovies = async (page, language, with_genres) => {
+  const { data } = await baseAxios.get("discover/movie", {
+    params: {
+      page,
+      language,
+      with_genres,
+    },
+  });
   return data;
 };
 
@@ -61,15 +67,15 @@ export const generateSeccionId = async () => {
   return session_id;
 };
 
-export const getUserData = async (sessionId) => {
-  const { data } = await baseAxios.get(`account?session_id=${sessionId}`);
+export const getUserData = async (session_id) => {
+  const { data } = await baseAxios.get(`account?session_id=${session_id}`);
   return data;
 };
 
-export const deliteSessionId = async (sessionId) => {
+export const delitesession_id = async (session_id) => {
   const data = await baseAxios.delete("authentication/session", {
     data: {
-      session_id: sessionId,
+      session_id,
     },
   });
   return data;

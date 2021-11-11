@@ -76,7 +76,7 @@ function PasswordInputs() {
           variant="outlined"
           key={i + 20}
         >
-          <InputLabel htmlFor={name}>{label}</InputLabel>
+          <InputLabel htmlFor={name}>{label}*</InputLabel>
           <OutlinedInput
             onBlur={handleOnBlur}
             required

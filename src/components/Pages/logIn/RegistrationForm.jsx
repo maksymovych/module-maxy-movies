@@ -41,6 +41,7 @@ function RegistrationForm() {
     <form type="submit" onSubmit={handleSubmit(onSubmit)}>
       {registrationFilds.map(({ name, label, required, type }, i) => (
         <MyInput
+          size="small"
           key={i}
           label={label}
           required={required}
@@ -52,8 +53,8 @@ function RegistrationForm() {
         />
       ))}
 
-      <DateInput />
       <RadioButtons mainLabel="Gender" inputsArray={genderInputs} />
+      <DateInput />
       <PasswordInputs />
       <MyButton type="submit">Submit</MyButton>
     </form>
