@@ -4,6 +4,7 @@ import { useHistory } from "react-router";
 import { generateSeccionId } from "../../../apis/auth";
 import { fetchUser } from "../../../store/redusers/userSlice";
 import { setLogIn } from "../../../store/redusers";
+import { Typography } from "@mui/material";
 
 function Session() {
   const dispatch = useDispatch();
@@ -18,7 +19,11 @@ function Session() {
     history.push("/movies");
     return () => localStorage.removeItem("request_token");
   }, [history, dispatch]);
-  return <div>Welcome to session</div>;
+  return (
+    <Typography variant="h5" sx={{ m: "30px auto" }}>
+      Welcome to session
+    </Typography>
+  );
 }
 
 export default Session;

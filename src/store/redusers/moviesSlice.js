@@ -7,7 +7,6 @@ import {
 } from "../../apis/auth";
 
 export const initialState = {
-  searchInput: "",
   favorits: {},
   favoritId: [],
   searchFields: {},
@@ -58,9 +57,6 @@ const movieSlice = createSlice({
     changeSearchFields(state, action) {
       state.searchFields = action.payload;
     },
-    changeSearchInput(state, action) {
-      state.searchInput = action.payload;
-    },
   },
   extraReducers: {
     [fetchMovies.pending](state) {
@@ -92,6 +88,9 @@ const movieSlice = createSlice({
     [fetchMarkAsFavorite.fulfilled](state) {
       state.isFetching = false;
     },
+    [fetchMarkAsFavorite.rejected](state) {
+      state.isFetching = false;
+    },
     [fetchFavorits.pending](state) {
       state.isFetching = true;
     },
@@ -100,9 +99,11 @@ const movieSlice = createSlice({
       state.favorits = action.payload;
       state.favoritId = action.payload.results.map(({ id }) => id);
     },
+    [fetchFavorits.rejected](state) {
+      state.isFetching = false;
+    },
   },
 });
 
-export const { addCurrentMovie, changeSearchFields, changeSearchInput } =
-  movieSlice.actions;
+export const { addCurrentMovie, changeSearchFields } = movieSlice.actions;
 export const movieReducer = movieSlice.reducer;

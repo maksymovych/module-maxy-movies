@@ -1,11 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { delitesession_id, getUserData } from "../../apis/auth";
+import { deleteSession_id, getUserData } from "../../apis/auth";
 
 export const initialState = {
-  avatar: "",
-  data: {},
-  fielsd: [],
-  isLoggedIn: true,
+  isLoggedIn: false,
   loading: true,
 };
 
@@ -13,14 +10,14 @@ export const fetchUser = createAsyncThunk(
   "user/fetchUser",
   async (session_id) => {
     const data = await getUserData(session_id);
-    return data;
+    localStorage.setItem("user", JSON.stringify(data));
   }
 );
 
-export const deliteSession = createAsyncThunk(
-  "user/deliteSession",
+export const deleteSession = createAsyncThunk(
+  "user/deleteSession",
   async (session_id) => {
-    delitesession_id(session_id);
+    deleteSession_id(session_id);
   }
 );
 
@@ -39,14 +36,13 @@ const userSlice = createSlice({
     [fetchUser.pending](state) {
       state.loading = true;
     },
-    [fetchUser.fulfilled](state, action) {
-      state.data = action.payload;
+    [fetchUser.fulfilled](state) {
       state.loading = false;
     },
     [fetchUser.rejected](state) {
       state.loading = false;
     },
-    [deliteSession.fulfilled](state) {
+    [deleteSession.fulfilled](state) {
       state.isLoggedIn = false;
     },
   },

@@ -29,7 +29,14 @@ function Favorits() {
         <ProfileLink />
       </NavBar>
       <ButtonBack isBack={true} />
-      <Typography align="center" sx={{ mb: "20px" }} variant="h5">
+      <Typography
+        align="center"
+        sx={{
+          m: "30px",
+          fontFamily: "Mochiy Pop One",
+        }}
+        variant="h5"
+      >
         Your favorite movies
       </Typography>
       <BasicPagination

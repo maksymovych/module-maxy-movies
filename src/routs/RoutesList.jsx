@@ -13,7 +13,7 @@ function RoutesList() {
           <Route key={i} path={path} component={component} exact />
         )
       )}
-      <Redirect to="/" />
+      <Redirect to="/error" />
     </Switch>
   );
 }

@@ -72,7 +72,7 @@ export const getUserData = async (session_id) => {
   return data;
 };
 
-export const delitesession_id = async (session_id) => {
+export const deleteSession_id = async (session_id) => {
   const data = await baseAxios.delete("authentication/session", {
     data: {
       session_id,

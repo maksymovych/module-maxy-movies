@@ -12,6 +12,6 @@ export const routes = [
   { path: "/favorits", component: Favorits, isPrivate: true },
   { path: "/profile", component: Profile, isPrivate: true },
   { path: "/session", component: Session },
-  { path: "/", component: LogIn },
+  { path: "/login", component: LogIn },
   { path: "/error", component: Error },
 ];

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -23,10 +23,8 @@ export default function CardMovie(props) {
   const history = useHistory();
   const pathImg = getImgPath(poster);
   const isFavorit = isFavorite(id, favorits);
-  if (!poster) {
-    return null;
-  }
-  const handleAddToFavorit = async () => {
+
+  const handleAddToFavoritre = async () => {
     const session_id = localStorage.getItem("session_id");
     const isFav = !isFavorit;
     await dispatch(fetchMarkAsFavorite({ id, isFav, session_id }));
@@ -45,9 +43,9 @@ export default function CardMovie(props) {
           <FavoriteIco
             sx={{ position: "absolute", right: "10px", top: "10px" }}
             isFavorite={isFavorit}
-            onClick={handleAddToFavorit}
+            onClick={handleAddToFavoritre}
           />
-          {pathImg ? (
+          {!!pathImg ? (
             <CardMedia
               component="img"
               height="100%"

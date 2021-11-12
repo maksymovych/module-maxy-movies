@@ -1,5 +1,4 @@
 import React from "react";
-//import { useSelector } from "react-redux";
 import CardActions from "@mui/material/CardActions";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -11,19 +10,25 @@ import TableRow from "@mui/material/TableRow";
 import NavBar from "../../NavBar/NavBar";
 import MyButton from "../../ui/buttons/MyButton/MyButton";
 import { getImgPath } from "../../../utils/functions/getImgPath";
-import { useDispatch, useSelector } from "react-redux";
-import { deliteSession } from "../../../store/redusers";
+import { useDispatch } from "react-redux";
+
 import ButtonBack from "../../ui/buttons/ButtonBack/ButtonBack";
+import Loader from "../../ui/Loader/Loader";
+import { deleteSession } from "../../../store/redusers";
+import { Typography } from "@mui/material";
 
 function Profile() {
-  const { data } = useSelector((state) => state.user);
-  const imgP = getImgPath(data.avatar.tmdb.avatar_path);
-  const { id, name, username } = data;
+  const user = JSON.parse(localStorage.getItem("user"));
   const dispatch = useDispatch();
+  if (!user.avatar.tmdb.avatar_path) {
+    return <Loader />;
+  }
+  const imgP = getImgPath(user.avatar.tmdb.avatar_path);
+  const { id, name, username } = user;
 
   const handleLogOut = () => {
     const session_id = localStorage.getItem("session_id");
-    dispatch(deliteSession(session_id));
+    dispatch(deleteSession(session_id));
     localStorage.clear();
   };
 
@@ -31,6 +36,16 @@ function Profile() {
     <>
       <NavBar />
       <ButtonBack isBack={true} />
+      <Typography
+        align="center"
+        sx={{
+          mb: "30px",
+          fontFamily: "Mochiy Pop One",
+        }}
+        variant="h5"
+      >
+        Profile
+      </Typography>
       <Card sx={{ maxWidth: 345, margin: "20px auto" }}>
         <CardMedia component="img" image={imgP} alt="green iguana" />
         <CardContent>

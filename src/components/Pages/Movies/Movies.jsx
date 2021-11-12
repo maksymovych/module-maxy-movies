@@ -1,12 +1,11 @@
-import React from "react";
-import { Grid, Stack } from "@mui/material";
+import React, { useState } from "react";
+import { Grid, Typography } from "@mui/material";
 import NavBar from "../../NavBar/NavBar";
 import SearchMovie from "../../ui/SearchMovie/SearchMovie";
 import ProfileLink from "../../ProfileLink/ProfileLink";
 import BasicPagination from "../../ui/Pagination/Pagination";
 import { useStateDispatch } from "../../../utils/hoocks/useStateDispatch";
 import {
-  changeSearchInput,
   fetchFavorits,
   fetchMovies,
   fetchSearchMovie,
@@ -17,10 +16,9 @@ import { Box } from "@mui/system";
 import SortCard from "./SortCard";
 
 function Movies() {
-  const [
-    { movies, favoritId, isFetching, searchFields, searchInput },
-    dispatch,
-  ] = useStateDispatch("movies");
+  const [{ movies, favoritId, isFetching, searchFields }, dispatch] =
+    useStateDispatch("movies");
+  const [searchInput, setSearchInput] = useState("");
   const { page, results, total_pages } = movies;
 
   if (!favoritId?.length && !isFetching) {
@@ -34,30 +32,38 @@ function Movies() {
 
   const handleChangeSearchInput = (e) => {
     const text = e.target.value;
-    dispatch(changeSearchInput(text));
-
-    if (text.length < 2) return;
-    dispatch(fetchSearchMovie({ text }));
+    console.log("asas", text);
+    !text
+      ? dispatch(fetchMovies({ language: "en" }))
+      : dispatch(fetchSearchMovie({ text }));
+    setSearchInput(text);
   };
 
   const changePage = (_, page) => {
     const text = searchInput;
     const language = searchFields.language;
     const genres = searchFields.genres;
-    !!searchInput
-      ? dispatch(fetchSearchMovie({ text, page }))
-      : dispatch(fetchMovies({ page, language, genres }));
+    !text
+      ? dispatch(fetchMovies({ page, language, genres }))
+      : dispatch(fetchSearchMovie({ text, page }));
   };
 
   return (
     <>
       <NavBar>
-        <Stack direction="row" spacing={1}>
-          <ProfileLink />
-          <SearchMovie value={searchInput} onChange={handleChangeSearchInput} />
-        </Stack>
+        <ProfileLink />
+        <SearchMovie value={searchInput} onChange={handleChangeSearchInput} />
       </NavBar>
-
+      <Typography
+        align="center"
+        sx={{
+          mt: "30px",
+          fontFamily: "Mochiy Pop One",
+        }}
+        variant="h5"
+      >
+        Movies
+      </Typography>
       {!page ? (
         <Loader />
       ) : (
@@ -74,8 +80,16 @@ function Movies() {
         }}
       >
         <SortCard />
-        <Grid container spacing={3} direction="row" justifyContent="center">
-          {results &&
+        <Grid
+          container
+          spacing={3}
+          direction="row"
+          justifyContent="center"
+          sx={{ pb: "20px" }}
+        >
+          {isFetching ? (
+            <Loader />
+          ) : (
             results.map(
               ({
                 backdrop_path,
@@ -96,9 +110,11 @@ function Movies() {
                   reliase={release_date}
                   poster={poster_path}
                   favorits={favoritId}
+                  isFatching={isFetching}
                 />
               )
-            )}
+            )
+          )}
         </Grid>
       </Box>
     </>

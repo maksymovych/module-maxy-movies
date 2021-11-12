@@ -1,16 +1,16 @@
 import { Avatar } from "@mui/material";
 import React from "react";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getImgPath } from "../../utils/functions/getImgPath";
 import Loader from "../ui/Loader/Loader";
 
 function ProfileLink() {
-  const { data } = useSelector((state) => state.user);
-  if (!data?.avatar?.tmdb?.avatar_path) {
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  if (!user?.avatar?.tmdb?.avatar_path) {
     return <Loader />;
   }
-  const imgPath = getImgPath(data.avatar.tmdb.avatar_path);
+  const imgPath = getImgPath(user.avatar.tmdb.avatar_path);
 
   return (
     <Link to="/profile" sx={{ float: "right" }}>

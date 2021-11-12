@@ -6,7 +6,7 @@ import MyModal from "../../ui/MyModal/MyModal";
 function Error() {
   const history = useHistory();
   const handleGoToLogin = () => {
-    history.push("/");
+    history.push("/login");
   };
   return (
     <MyModal label="Error mesage" body="404 Page not found!">

@@ -19,11 +19,11 @@ function Movie() {
   const fullImgPath = getImgPath(path);
   const posterPath = getImgPath(poster);
 
-  const handleAddToFavorit = async () => {
+  const handleAddToFavorit = () => {
     const session_id = localStorage.getItem("session_id");
     const isFav = !isFavorit;
-    await dispatch(fetchMarkAsFavorite({ id, isFav, session_id }));
-    await dispatch(fetchFavorits({ session_id }));
+    dispatch(fetchMarkAsFavorite({ id, isFav, session_id }));
+    dispatch(fetchFavorits({ session_id }));
   };
 
   return (
