@@ -82,25 +82,10 @@ const movieSlice = createSlice({
       state.isFetching = false;
       state.error = true;
     },
-    [fetchMarkAsFavorite.pending](state) {
-      state.isFetching = true;
-    },
-    [fetchMarkAsFavorite.fulfilled](state) {
-      state.isFetching = false;
-    },
-    [fetchMarkAsFavorite.rejected](state) {
-      state.isFetching = false;
-    },
-    [fetchFavorits.pending](state) {
-      state.isFetching = true;
-    },
+
     [fetchFavorits.fulfilled](state, action) {
-      state.isFetching = false;
       state.favorits = action.payload;
       state.favoritId = action.payload.results.map(({ id }) => id);
-    },
-    [fetchFavorits.rejected](state) {
-      state.isFetching = false;
     },
   },
 });

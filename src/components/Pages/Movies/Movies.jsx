@@ -90,6 +90,7 @@ function Movies() {
           {isFetching ? (
             <Loader />
           ) : (
+            results &&
             results.map(
               ({
                 backdrop_path,
