@@ -27,7 +27,7 @@ function LogIn() {
         >
           Welcome to Module Maxy Movies
         </Typography>
-        <Card sx={{ maxWidth: "500px", minWidth: "400px", m: "auto" }}>
+        <Card sx={{ maxWidth: "500px", minWidth: "350px", m: "auto" }}>
           <RegistrTabPanel />
         </Card>
       </Box>
