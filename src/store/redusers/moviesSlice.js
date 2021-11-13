@@ -82,7 +82,6 @@ const movieSlice = createSlice({
       state.isFetching = false;
       state.error = true;
     },
-
     [fetchFavorits.fulfilled](state, action) {
       state.favorits = action.payload;
       state.favoritId = action.payload.results.map(({ id }) => id);
