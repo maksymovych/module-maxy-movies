@@ -29,7 +29,6 @@ function Movies() {
   }
 
   if (!results?.length && !isFetching) {
-    console.log("sdsdsdsdsd");
     dispatch(fetchMovies({ language: "en" }));
   }
 
