@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import RegistrationForm from "../Pages/logIn/RegistrationForm";
 import LogInForm from "../Pages/logIn/LogInForm";
+import { Paper } from "@mui/material";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -69,12 +70,14 @@ function RegistrTabPanel() {
           <Tab label="Registration Form" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0} dir={theme.direction}>
-        <LogInForm />
-      </TabPanel>
-      <TabPanel value={value} index={1} dir={theme.direction}>
-        <RegistrationForm />
-      </TabPanel>
+      <Paper>
+        <TabPanel value={value} index={0} dir={theme.direction}>
+          <LogInForm />
+        </TabPanel>
+        <TabPanel value={value} index={1} dir={theme.direction}>
+          <RegistrationForm />
+        </TabPanel>
+      </Paper>
     </Box>
   );
 }

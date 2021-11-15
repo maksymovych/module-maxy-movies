@@ -1,7 +1,8 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
+import PropTypes from "prop-types";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import { Paper } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -28,7 +29,7 @@ export default function MyModal({ label, body, children }) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Paper sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
             {label}
           </Typography>
@@ -36,8 +37,14 @@ export default function MyModal({ label, body, children }) {
             {body}
           </Typography>
           {children}
-        </Box>
+        </Paper>
       </Modal>
     </div>
   );
 }
+
+MyModal.propTypes = {
+  label: PropTypes.string,
+  body: PropTypes.string,
+  children: PropTypes.any,
+};

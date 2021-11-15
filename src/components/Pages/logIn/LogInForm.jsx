@@ -13,10 +13,15 @@ const schema = yup
   .shape({
     password: yup
       .string()
-      .max(30)
-      .min(4, "To short, minimum 4 characters")
+      .max(18, "To long, maximum length is 18 characters")
+      .min(6, "To short, minimum 4 characters")
       .required("The password is required field"),
-    email: yup.string().email().max(30).min(4, "To short").required(),
+    email: yup
+      .string()
+      .email()
+      .max(40, "To long, maximum length is 40 characters")
+      .min(4, "To short")
+      .required(),
   })
   .required();
 

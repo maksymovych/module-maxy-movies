@@ -1,6 +1,7 @@
 import { Box } from "@mui/system";
 import React from "react";
 import { useHistory } from "react-router";
+import PropTypes from "prop-types";
 import MyButton from "../MyButton/MyButton";
 
 function ButtonBack({ isBack, ...props }) {
@@ -19,3 +20,7 @@ function ButtonBack({ isBack, ...props }) {
 }
 
 export default ButtonBack;
+
+ButtonBack.propeTypes = {
+  isBack: PropTypes.bool,
+};

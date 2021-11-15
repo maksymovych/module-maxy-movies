@@ -1,6 +1,7 @@
-import { Avatar } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import { Avatar } from "@mui/material";
 import { getImgPath } from "../../utils/functions/getImgPath";
 import Loader from "../ui/Loader/Loader";
 
@@ -25,3 +26,7 @@ function ProfileLink() {
 }
 
 export default ProfileLink;
+
+ProfileLink.propTypes = {
+  imgPath: PropTypes.string,
+};

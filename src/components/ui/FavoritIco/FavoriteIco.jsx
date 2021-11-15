@@ -14,7 +14,7 @@ function FavoriteIco({ isFavorite, ...props }) {
   return (
     <Box onClick={notify}>
       <Avatar sx={{ cursor: "pointer" }} {...props}>
-        {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+        {isFavorite ? <FavoriteIcon color="error" /> : <FavoriteBorderIcon />}
       </Avatar>
       <ToastContainer />
     </Box>

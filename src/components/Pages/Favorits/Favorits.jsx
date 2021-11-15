@@ -1,6 +1,7 @@
-import { Grid, Typography } from "@mui/material";
 import React from "react";
 import { useDispatch } from "react-redux";
+import PropTypes from "prop-types";
+import { Grid, Typography } from "@mui/material";
 import { fetchFavorits } from "../../../store/redusers";
 import { useStateDispatch } from "../../../utils/hoocks/useStateDispatch";
 import NavBar from "../../NavBar/NavBar";
@@ -88,3 +89,10 @@ function Favorits() {
 }
 
 export default Favorits;
+
+Favorits.propTypes = {
+  favoritId: PropTypes.array,
+  results: PropTypes.array,
+  total_pages: PropTypes.string,
+  page: PropTypes.string,
+};

@@ -1,18 +1,19 @@
 import React from "react";
+import { useHistory } from "react-router";
+import { useDispatch } from "react-redux";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea, Grid } from "@mui/material";
+import PropTypes from "prop-types";
 import { getImgPath } from "../../../utils/functions/getImgPath";
-import { useHistory } from "react-router";
 import Raiting from "../../ui/Raiting/Raiting";
 import {
   addCurrentMovie,
   fetchFavorits,
   fetchMarkAsFavorite,
 } from "../../../store/redusers";
-import { useDispatch } from "react-redux";
 import FavoriteIco from "../../ui/FavoritIco/FavoriteIco";
 import { isFavorite } from "../../../utils/functions/isFavorit";
 import Loader from "../../ui/Loader/Loader";
@@ -79,3 +80,12 @@ export default function CardMovie(props) {
     </Grid>
   );
 }
+
+CardMovie.propTypes = {
+  poster: PropTypes.string,
+  raiting: PropTypes.number,
+  name: PropTypes.string,
+  reliase: PropTypes.string,
+  id: PropTypes.number,
+  favorits: PropTypes.object,
+};

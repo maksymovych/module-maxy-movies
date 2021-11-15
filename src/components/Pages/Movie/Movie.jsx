@@ -1,9 +1,10 @@
 import { Card, CardContent, CardMedia, Stack, Typography } from "@mui/material";
 import React from "react";
-import NavBar from "../../NavBar/NavBar";
-import { getImgPath } from "../../../utils/functions/getImgPath";
 import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@mui/system";
+import PropTypes from "prop-types";
+import NavBar from "../../NavBar/NavBar";
+import { getImgPath } from "../../../utils/functions/getImgPath";
 import Raiting from "../../ui/Raiting/Raiting";
 import FavoriteIco from "../../ui/FavoritIco/FavoriteIco";
 import { isFavorite } from "../../../utils/functions/isFavorit";
@@ -80,3 +81,14 @@ function Movie() {
 }
 
 export default Movie;
+
+Movie.propTypes = {
+  path: PropTypes.any,
+  poster: PropTypes.string,
+  raiting: PropTypes.number,
+  title: PropTypes.string,
+  name: PropTypes.string,
+  reliase: PropTypes.string,
+  id: PropTypes.number,
+  favoritId: PropTypes.array,
+};

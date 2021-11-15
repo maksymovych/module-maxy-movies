@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { deleteSession_id, getUserData } from "../../apis/auth";
 
 export const initialState = {
-  isLoggedIn: false,
+  isLoggedIn: true,
   loading: true,
 };
 

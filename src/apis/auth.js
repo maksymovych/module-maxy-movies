@@ -34,12 +34,13 @@ export const markAsFavorite = async (media_id, favorite, session_id) => {
   });
 };
 
-export const discoverMovies = async (page, language, with_genres) => {
+export const discoverMovies = async (page, language = "en", with_genres) => {
   const { data } = await baseAxios.get("discover/movie", {
     params: {
       page,
       language,
       with_genres,
+      with_original_language: language,
     },
   });
   return data;

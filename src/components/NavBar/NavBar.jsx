@@ -3,6 +3,7 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import HomeIcon from "@mui/icons-material/Home";
 import MyFavoriteIcon from "../ui/MyFavoriteIcon/MyFavoriteIcon";
 import ThemToggle from "../ui/ThemToggle/ThemToggle";
 import { useHistory } from "react-router";
@@ -25,19 +26,10 @@ export default function NavBar({ children }) {
             onClick={handleOpenFavorites}
             amount={total_results}
           />
-          <ThemToggle />
           <Link to="/movies">
-            <Typography
-              variant="h6"
-              noWrap
-              sx={{
-                flexGrow: 1,
-                px: "15px",
-              }}
-            >
-              Movies
-            </Typography>
+            <HomeIcon sx={{ mx: "10px" }} fontSize="large" />
           </Link>
+          <ThemToggle />
           <Typography
             variant="h6"
             noWrap

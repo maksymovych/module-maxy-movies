@@ -1,3 +1,5 @@
+import React from "react";
+import PropTypes from "prop-types";
 import {
   FormControl,
   FormControlLabel,
@@ -5,7 +7,7 @@ import {
   Radio,
   RadioGroup,
 } from "@mui/material";
-import React from "react";
+
 function RadioButtons({ mainLabel, inputsArray }) {
   return (
     <FormControl component="fieldset">
@@ -27,3 +29,8 @@ function RadioButtons({ mainLabel, inputsArray }) {
 }
 
 export default RadioButtons;
+
+RadioButtons.propTypes = {
+  mainLabel: PropTypes.string,
+  inputsArray: PropTypes.array,
+};

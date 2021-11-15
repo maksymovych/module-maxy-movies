@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
 import CardActions from "@mui/material/CardActions";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -6,16 +8,14 @@ import CardMedia from "@mui/material/CardMedia";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
+import { Typography } from "@mui/material";
 import TableRow from "@mui/material/TableRow";
 import NavBar from "../../NavBar/NavBar";
 import MyButton from "../../ui/buttons/MyButton/MyButton";
 import { getImgPath } from "../../../utils/functions/getImgPath";
-import { useDispatch } from "react-redux";
-
 import ButtonBack from "../../ui/buttons/ButtonBack/ButtonBack";
 import Loader from "../../ui/Loader/Loader";
 import { deleteSession } from "../../../store/redusers";
-import { Typography } from "@mui/material";
 
 function Profile() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -83,3 +83,9 @@ function Profile() {
 }
 
 export default Profile;
+
+Profile.propTypes = {
+  id: PropTypes.number,
+  name: PropTypes.string,
+  username: PropTypes.string,
+};

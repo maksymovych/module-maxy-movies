@@ -1,7 +1,8 @@
+import React from "react";
 import { Avatar, CircularProgress, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { grey } from "@mui/material/colors";
-import React from "react";
+import PropTypes from "prop-types";
 
 function Raiting({ raiting, ...props }) {
   const rait = Math.round(raiting * 10);
@@ -38,3 +39,7 @@ function Raiting({ raiting, ...props }) {
 }
 
 export default Raiting;
+
+Raiting.propTypes = {
+  raiting: PropTypes.number,
+};

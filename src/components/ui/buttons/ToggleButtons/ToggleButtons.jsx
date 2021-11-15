@@ -1,4 +1,5 @@
 import * as React from "react";
+import PropTypes from "prop-types";
 import { styled } from "@mui/material/styles";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import {
@@ -64,3 +65,9 @@ export default function ToggleButtons({ genresList, genres, onGenresChange }) {
     </>
   );
 }
+
+ToggleButton.propTypes = {
+  genresList: PropTypes.array,
+  genres: PropTypes.string,
+  onGenresChange: PropTypes.func,
+};

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Grid, Typography } from "@mui/material";
+import { Box } from "@mui/system";
+import PropTypes from "prop-types";
 import NavBar from "../../NavBar/NavBar";
 import SearchMovie from "../../ui/SearchMovie/SearchMovie";
 import ProfileLink from "../../ProfileLink/ProfileLink";
@@ -12,7 +14,6 @@ import {
 } from "../../../store/redusers";
 import CardMovie from "./CardMovie";
 import Loader from "../../ui/Loader/Loader";
-import { Box } from "@mui/system";
 import SortCard from "./SortCard";
 
 function Movies() {
@@ -32,7 +33,6 @@ function Movies() {
 
   const handleChangeSearchInput = (e) => {
     const text = e.target.value;
-    console.log("asas", text);
     !text
       ? dispatch(fetchMovies({ language: "en" }))
       : dispatch(fetchSearchMovie({ text }));
@@ -57,22 +57,13 @@ function Movies() {
       <Typography
         align="center"
         sx={{
-          mt: "30px",
+          m: "30px",
           fontFamily: "Mochiy Pop One",
         }}
         variant="h5"
       >
         Movies
       </Typography>
-      {!page ? (
-        <Loader />
-      ) : (
-        <BasicPagination
-          pageAmount={total_pages}
-          page={page}
-          onChange={changePage}
-        />
-      )}
       <Box
         sx={{
           display: { sm: "flex" },
@@ -116,6 +107,15 @@ function Movies() {
               )
             )
           )}
+          {!page ? (
+            <Loader />
+          ) : (
+            <BasicPagination
+              pageAmount={total_pages}
+              page={page}
+              onChange={changePage}
+            />
+          )}
         </Grid>
       </Box>
     </>
@@ -123,3 +123,12 @@ function Movies() {
 }
 
 export default Movies;
+
+Movies.propTypes = {
+  page: PropTypes.number,
+  results: PropTypes.array,
+  total_pages: PropTypes.number,
+  favoritId: PropTypes.array,
+  isFetching: PropTypes.bool,
+  searchFields: PropTypes.object,
+};
