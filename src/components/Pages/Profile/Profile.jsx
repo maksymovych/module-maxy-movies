@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
 import CardActions from "@mui/material/CardActions";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -18,8 +19,9 @@ import Loader from "../../ui/Loader/Loader";
 import { deleteSession } from "../../../store/redusers";
 
 function Profile() {
-  const user = JSON.parse(localStorage.getItem("user"));
   const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem("user"));
+  const history = useHistory();
   if (!user.avatar.tmdb.avatar_path) {
     return <Loader />;
   }
@@ -27,6 +29,7 @@ function Profile() {
   const { id, name, username } = user;
 
   const handleLogOut = () => {
+    history.push("/login");
     const session_id = localStorage.getItem("session_id");
     dispatch(deleteSession(session_id));
     localStorage.clear();

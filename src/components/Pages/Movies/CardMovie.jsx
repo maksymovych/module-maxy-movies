@@ -36,7 +36,7 @@ export default function CardMovie(props) {
     dispatch(addCurrentMovie(props));
     history.push(`movie/${id}`);
   };
-
+  if (!poster) return null;
   return (
     <Grid item key={id}>
       <Card sx={{ maxWidth: "250px" }}>
@@ -87,5 +87,5 @@ CardMovie.propTypes = {
   name: PropTypes.string,
   reliase: PropTypes.string,
   id: PropTypes.number,
-  favorits: PropTypes.object,
+  favorits: PropTypes.array,
 };

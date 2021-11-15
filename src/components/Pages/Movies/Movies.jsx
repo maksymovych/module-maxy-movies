@@ -19,20 +19,22 @@ import SortCard from "./SortCard";
 function Movies() {
   const [{ movies, favoritId, isFetching, searchFields }, dispatch] =
     useStateDispatch("movies");
+
   const [searchInput, setSearchInput] = useState("");
   const { page, results, total_pages } = movies;
 
-  if (!favoritId?.length && !isFetching) {
+  if (!favoritId?.length && localStorage.getItem("user")) {
     const session_id = localStorage.getItem("session_id");
     dispatch(fetchFavorits({ session_id }));
   }
 
   if (!results?.length && !isFetching) {
+    console.log("sdsdsdsdsd");
     dispatch(fetchMovies({ language: "en" }));
   }
 
   const handleChangeSearchInput = (e) => {
-    const text = e.target.value;
+    const text = e.target.value.toLowerCase();
     !text
       ? dispatch(fetchMovies({ language: "en" }))
       : dispatch(fetchSearchMovie({ text }));

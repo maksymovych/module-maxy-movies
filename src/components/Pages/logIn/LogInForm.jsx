@@ -1,12 +1,11 @@
-import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { generateToken } from "../../../apis/auth";
 import { useFetching } from "../../../utils/hoocks/useFetching";
 import MyButton from "../../ui/buttons/MyButton/MyButton";
 import MyInput from "../../ui/inputs/MyInput/MyInput";
-
 
 const schema = yup
   .object()
